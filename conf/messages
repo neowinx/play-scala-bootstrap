@@ -1,0 +1,12 @@
+application.title=Sistema de Administracion de Personal
+
+#Menubar
+menubar.Home=Inicio
+menubar.Administracion=Administracion
+
+#index.scala.html
+menu.title=Menu
+
+#Persona
+persona_=Persona
+persona_.plural=Personas
