@@ -1,11 +1,12 @@
 package controllers
 
 import play.api.mvc._
+import model.Persona
 
 object PersonaController extends Controller {
 
   def index = Action {
-    Ok("Funcion aun no implementada")
+    Ok(views.html.persona(Persona.findAll()))
   }
 
 }

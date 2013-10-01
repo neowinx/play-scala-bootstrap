@@ -27,4 +27,23 @@ object Persona {
     }
   }
 
+  def create(persona: Persona): Persona = {
+    DB.withConnection { implicit connection =>
+      SQL(
+        """
+          insert into persona values (
+            {id}, {descripcion}, {fechaInicio}
+          )
+        """
+      ).on(
+        'id -> persona.id,
+        'descripcion -> persona.descripcion,
+        'fechaInicio -> persona.fechaInicio
+      ).executeUpdate()
+
+      persona
+
+    }
+  }
+
 }

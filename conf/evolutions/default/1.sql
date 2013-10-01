@@ -10,4 +10,4 @@ create table persona (
 
 # --- !Downs
 
-drop table if exists prueba;
+drop table if exists persona;

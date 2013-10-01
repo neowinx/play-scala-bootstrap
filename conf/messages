@@ -11,3 +11,6 @@ hero.title=Este es el Sistema de Administración de Personal de la empresa Fenix
 #Persona
 persona_=Persona
 persona_.plural=Personas
+persona_.id=Id
+persona_.descripcion=Descripcion
+persona_.fecha_inicio=Fecha Inicio
