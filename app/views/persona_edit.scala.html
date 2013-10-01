@@ -1,0 +1,17 @@
+@(personas: Seq[model.Persona], personaForm: Form[model.Persona])
+
+@main {
+    <h1>@Messages("persona_")</h1>
+
+    @for(per <- personas) {
+        @helper.form(action = routes.PersonaController.update(per.id)) {
+            @helper.inputText(personaForm("id"))
+            @helper.inputText(personaForm("descripcion"))
+            @helper.inputDate(personaForm("fechaInicio"))
+        }
+    }
+
+    @helper.form(action = routes.PersonaController.index) {
+        <input type="submit" class="btn btn-primary" value="Cancelar"  />
+    }
+}

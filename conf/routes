@@ -3,10 +3,13 @@
 # ~~~~
 
 # Home page
-GET        /                    controllers.Application.index
+GET         /                           controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file        controllers.Assets.at(path="/public", file)
+GET         /assets/*file               controllers.Assets.at(path="/public", file)
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /persona             controllers.PersonaController.index
+GET         /persona                    controllers.PersonaController.index
+GET         /persona/$id<[0-9]+>        controllers.PersonaController.edit(id: Int)
+POST        /persona/$id<[0-9]+>        controllers.PersonaController.update(id: Int)
+

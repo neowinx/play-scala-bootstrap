@@ -27,6 +27,13 @@ object Persona {
     }
   }
 
+  def find(id: Int) : Seq[Persona] = {
+    DB.withConnection { implicit connection =>
+      SQL("select * from persona where id = {id} ")
+        .on("id" -> id).as(Persona.simple *)
+    }
+  }
+
   def create(persona: Persona): Persona = {
     DB.withConnection { implicit connection =>
       SQL(

@@ -18,7 +18,7 @@
         @for(per <- personas) {
             <tr>
                 <td>@per.id</td>
-                <td>@per.descripcion</td>
+                <td><a href="/persona/@per.id">@per.descripcion</a></td>
                 <td>@per.fechaInicio</td>
             </tr>
         }
