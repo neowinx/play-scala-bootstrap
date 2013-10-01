@@ -1,11 +1,12 @@
-application.title=Sistema de Administracion de Personal
+application.title=Sistema de Administración de Personal
 
 #Menubar
 menubar.Home=Inicio
-menubar.Administracion=Administracion
+menubar.Administracion=Administración
 
 #index.scala.html
 menu.title=Menu
+hero.title=Este es el Sistema de Administración de Personal de la empresa Fenix S.A.
 
 #Persona
 persona_=Persona
