@@ -1,6 +1,7 @@
 @(personas: Seq[model.Persona], limit:Int, offset: Int, sort: Int, order:String)
 
 @theader(orderBy:Int, title:String) = {
+    <!--suppress ALL -->
     <th>
         <a href="?sort=@{ if(orderBy == scala.math.abs(sort)) { if(orderBy > 0) -sort else sort } else orderBy }">@Messages(title)</a>
     </th>
@@ -9,6 +10,19 @@
 @main {
 
     <h1>@Messages("persona_")</h1>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">@Messages("search_title")</h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-1">
+                    @helper.inputText
+                </div>
+            </div>
+        </div>
+    </div>
 
     <table class="table table-bordered">
 

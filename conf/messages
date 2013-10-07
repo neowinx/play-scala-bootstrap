@@ -1,5 +1,7 @@
 application.title=Sistema de Administración de Personal
 
+search_title=Filtros de Búsqueda
+
 #Menubar
 menubar.Home=Inicio
 menubar.Administracion=Administración
