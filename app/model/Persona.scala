@@ -20,10 +20,20 @@ object Persona {
     }
   }
 
-  def findAll(limit: Int = 10, offset: Int = 0): Seq[Persona] = {
+  def findAll(limit: Int = 10, offset: Int = 0, sort: Int = 1, order: String = "asc"): Seq[Persona] = {
     DB.withConnection { implicit connection =>
-      SQL("select * from persona limit {limit} offset {offset}")
-        .on("limit" -> limit, "offset" -> offset).as(Persona.simple *)
+      SQL(""" select *
+              from persona
+              order by {sort} %s
+              limit {limit} offset {offset}
+          """
+        .format(order match { case "asc" => "asc" case _ => "desc" })
+      )
+      .on(
+        'limit -> limit,
+        'offset -> offset,
+        'sort -> sort
+      ).as(Persona.simple *)
     }
   }
 

@@ -1,0 +1,43 @@
+@(personas: Seq[model.Persona], limit:Int, offset: Int, sort: Int, order:String)
+
+@theader(orderBy:Int, title:String) = {
+    <th>
+        <a href="?sort=@{ if(orderBy == scala.math.abs(sort)) { if(orderBy > 0) -sort else sort } else orderBy }">@Messages(title)</a>
+    </th>
+}
+
+@main {
+
+    <h1>@Messages("persona_")</h1>
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                @theader(1,"persona_.id")
+                @theader(2,"persona_.descripcion")
+                @theader(3,"persona_.fecha_inicio")
+            </tr>
+        </thead>
+
+        <tbody>
+            @for(per <- personas) {
+                <tr>
+                    <td>@per.id</td>
+                    <td><a href="/persona/@per.id">@per.descripcion</a></td>
+                    <td>@per.fechaInicio</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+    <ul class="pagination">
+        <li><a href="#">&laquo;</a></li>
+        <li><a href="?offset=0">1</a></li>
+        <li><a href="?offset=10">2</a></li>
+        <li><a href="?offset=20">3</a></li>
+        <li><a href="#">&raquo;</a></li>
+    </ul>
+
+}

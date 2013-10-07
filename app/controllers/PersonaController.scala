@@ -15,20 +15,27 @@ object PersonaController extends Controller {
     )
   (Persona.apply)(Persona.unapply))
 
-  val list = Ok(views.html.persona(Persona.findAll()))
+  def list(limit: Int, offset: Int, sort: Int, order: String) = {
+    Ok(
+      views.html.persona.list(
+        Persona.findAll(limit, offset, sort, order), limit, offset, sort, order
+      )
+    )
+  }
 
-  def index = Action {
-    list
+  def index(limit: Int, offset: Int, sort: Int, order: String) = Action {
+    list(limit, offset, sort, order)
   }
 
   def edit(id: Int) = Action { implicit request =>
     val persona = Persona.find(id)
-    Ok(views.html.persona_edit(persona, personaForm.fill(persona(0))))
+    Ok(views.html.persona.edit(persona, personaForm.fill(persona(0))))
   }
 
   def update(id: Int) = Action {
     /* Actualizar, luego ir al listado */
-    list
+    //list()
+    Ok("implement me")
   }
 
 }
