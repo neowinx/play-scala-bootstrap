@@ -7,6 +7,8 @@ import play.api.data.Forms._
 
 object PersonaController extends Controller {
 
+  val personaFilter = Form("id" -> number)
+
   val personaForm = Form(
     mapping(
       "id" -> number,
@@ -18,7 +20,7 @@ object PersonaController extends Controller {
   def list(limit: Int, offset: Int, sort: Int, order: String) = {
     Ok(
       views.html.persona.list(
-        Persona.findAll(limit, offset, sort, order), limit, offset, sort, order
+        personaFilter, Persona.findAll(limit, offset, sort, order), limit, offset, sort, order
       )
     )
   }

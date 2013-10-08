@@ -1,4 +1,4 @@
-@(personas: Seq[model.Persona], limit:Int, offset: Int, sort: Int, order:String)
+@(personaFilter: Form[(Int)], personas: Seq[model.Persona], limit:Int, offset: Int, sort: Int, order:String)
 
 @theader(orderBy:Int, title:String) = {
     <!--suppress ALL -->
@@ -15,13 +15,22 @@
         <div class="panel-heading">
             <h3 class="panel-title">@Messages("search_title")</h3>
         </div>
+        @helper.form(action = routes.PersonaController.index(limit, offset, sort, order)) {
+
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-1">
-                    @helper.inputText
+                    @helper.inputText(personaFilter("id"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <input type="submit" class="btn btn-primary" value="Buscar" />
                 </div>
             </div>
         </div>
+
+        }
     </div>
 
     <table class="table table-bordered">
