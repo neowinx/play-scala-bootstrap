@@ -10,7 +10,11 @@ object ApplicationBuild extends Build {
   val appDependencies = Seq(
     // Add your project dependencies here,
     jdbc,
-    anorm
+    anorm,
+    "net.fwbrasil" %% "activate-play" % "1.4.1" exclude("org.scala-stm", "scala-stm_2.10.0"),
+    "net.fwbrasil" %% "activate-jdbc-async" % "1.4.1" exclude("org.scala-stm", "scala-stm_2.10.0"),
+    "net.fwbrasil" %% "activate-mongo-async" % "1.4.1" exclude("org.scala-stm", "scala-stm_2.10.0"),
+    "mysql" % "mysql-connector-java" % "5.1.16"
   )
 
 
