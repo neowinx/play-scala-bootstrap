@@ -1,4 +1,11 @@
-@(personas: List[Persona])
+@(currentPage: Page[(Persona)], currentOrderBy: Int, currentFilter: String)
+
+@link(newPage: Int, newOrderBy: Option[Int] = None) = @{
+    routes.PersonaController.index(newPage, newOrderBy.map { orderBy =>
+        if(orderBy == scala.math.abs(currentOrderBy)) -currentOrderBy else orderBy
+    }.getOrElse(currentOrderBy), currentFilter)
+
+}
 
 @theader(orderBy:Int, title:String) = {
     <th>
@@ -9,33 +16,73 @@
 @main {
     <h1>@Messages("persona_")</h1>
 
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">@Messages("search_title")</h3>
+        </div>
+        <div class="panel-body">
+        @helper.form(action = routes.PersonaController.index()) {
+            <div class="row">
+                <div class="col-md-1">
+                    <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre...">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <input type="submit" class="btn btn-primary" value="Buscar" />
+                </div>
+            </div>
+        }
+        </div>
+    </div>
+
+    @Option(currentPage.items).filterNot(_.isEmpty).map { personas =>
     <table class="table table-bordered">
 
         <thead>
             <tr>
-                @theader(1,"persona_.id")
-                @theader(2,"persona_.descripcion")
-                @theader(3,"persona_.fecha_inicio")
+                @theader(2,"persona_.nombre")
+                @theader(3,"persona_.fecha_nacimiento")
             </tr>
         </thead>
 
         <tbody>
-        @for(per <- personas) {
+
+            @for(per <- personas) {
             <tr>
                 <td><a href="/persona/@per.id">@per.nombre</a></td>
-                <td>@per.fechaNacimiento</td>
+                <td>@per.fechaNacimiento.map(_.format("dd/MM/yyyy"))</td>
             </tr>
-        }
+            }
+
         </tbody>
 
     </table>
 
-    <ul class="pagination">
-        <li><a href="#">&laquo;</a></li>
-        <li><a href="?offset=0">1</a></li>
-        <li><a href="?offset=10">2</a></li>
-        <li><a href="?offset=20">3</a></li>
-        <li><a href="#">&raquo;</a></li>
-    </ul>
 
+        <ul class="pagination">
+            @currentPage.prev.map { page =>
+            <li class="prev">
+                <a href="@link(page)">&larr; Previous</a>
+            </li>
+            }.getOrElse {
+                <li class="prev disabled">
+                    <a>&larr; Previous</a>
+                </li>
+            }
+            <li class="current">
+                <a>Displaying @(currentPage.offset + 1) to @(currentPage.offset + personas.size) of @currentPage.total</a>
+            </li>
+            @currentPage.next.map { page =>
+            <li class="next">
+                <a href="@link(page)">Next &rarr;</a>
+            </li>
+            }.getOrElse {
+                <li class="next disabled">
+                    <a>Next &rarr;</a>
+                </li>
+            }
+        </ul>
+
+    }
 }

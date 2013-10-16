@@ -5,13 +5,15 @@ import play.api.mvc._
 import scala.concurrent.Future
 import models.defaultPersistenceContext._
 import models.Persona
+import play.api.data._
+import play.api.data.Forms._
 
 object PersonaController extends Controller {
 
-  def index = Action.async { implicit request =>
+  def index(page: Int, orderBy: Int, filter: String) = Action.async { implicit request =>
     asyncTransactionalChain { implicit ctx =>
-      asyncAll[Persona].map {
-        personas => Ok(views.html.persona.list(personas))
+      Persona.list(page, orderBy, filter = ("*" + filter + "*")).map {
+        page => Ok(views.html.persona.list(page, orderBy, filter))
       }
     }
   }
