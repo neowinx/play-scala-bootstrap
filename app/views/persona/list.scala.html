@@ -24,7 +24,7 @@
         @helper.form(action = routes.PersonaController.index()) {
             <div class="row">
                 <div class="col-md-1">
-                    <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por nombre...">
+                    <input type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Filtrar por @Messages("persona_.nombre")...">
                 </div>
             </div>
             <div class="row">
@@ -59,30 +59,31 @@
 
     </table>
 
+    <a class="btn btn-default" id="add" href="@routes.PersonaController.create()">Agregar</a>
 
-        <ul class="pagination">
-            @currentPage.prev.map { page =>
-            <li class="prev">
-                <a href="@link(page)">&larr; Previous</a>
+    <ul class="pagination">
+        @currentPage.prev.map { page =>
+        <li class="prev">
+            <a href="@link(page)">&larr; Previous</a>
+        </li>
+        }.getOrElse {
+            <li class="prev disabled">
+                <a>&larr; Previous</a>
             </li>
-            }.getOrElse {
-                <li class="prev disabled">
-                    <a>&larr; Previous</a>
-                </li>
-            }
-            <li class="current">
-                <a>Displaying @(currentPage.offset + 1) to @(currentPage.offset + personas.size) of @currentPage.total</a>
+        }
+        <li class="current">
+            <a>Displaying @(currentPage.offset + 1) to @(currentPage.offset + personas.size) of @currentPage.total</a>
+        </li>
+        @currentPage.next.map { page =>
+        <li class="next">
+            <a href="@link(page)">Next &rarr;</a>
+        </li>
+        }.getOrElse {
+            <li class="next disabled">
+                <a>Next &rarr;</a>
             </li>
-            @currentPage.next.map { page =>
-            <li class="next">
-                <a href="@link(page)">Next &rarr;</a>
-            </li>
-            }.getOrElse {
-                <li class="next disabled">
-                    <a>Next &rarr;</a>
-                </li>
-            }
-        </ul>
+        }
+    </ul>
 
     }
 }

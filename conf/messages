@@ -2,6 +2,10 @@ application.title=Sistema de Administración de Personal
 
 search_title=Filtros de Búsqueda
 
+#Mensajges generales
+msg_save=Guardar
+msg_cancel=Cancelar
+
 #Menubar
 menubar.Home=Inicio
 menubar.Administracion=Administración

@@ -1,13 +1,26 @@
 @(id: String, personaForm: Form[net.fwbrasil.activate.play.EntityData[Persona]])
 
 @import helper._
+@import helper.twitterBootstrap._
 
 @main {
 
-    <h1>Editar @Messages("Persona_")</h1>
+	<h1>Editar @Messages("persona_")</h1>
 
-    @form(routes.PersonaController.update(id)){
-    	@inputText(personaForm("nombre"))
-    }
+	@form(routes.PersonaController.update(id)){
+
+	    <fieldset>
+	    	@inputText(personaForm("nombre"), '_label -> Messages("persona_.nombre"))
+	    	@inputDate(personaForm("fechaNacimiento"), '_label -> Messages("persona_.nombre"))
+		</fieldset>
+
+		<div class="actions">
+	    	<input type="submit" value="@Messages("msg_save")" class="btn btn-primary"> or 
+	    	<a href="@routes.PersonaController.index()" class="btn btn-default">@Messages("msg_cancel")</a> 
+			@form(routes.PersonaController.delete(id)) {
+			    <input type="submit" value="Borrar" class="btn btn-danger" onclick="return confirm('Esta seguro que desea eliminar el registro?')">
+			}
+		</div>
+	}
 
 }
