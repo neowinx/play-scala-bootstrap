@@ -1,4 +1,4 @@
-# Routes
+# routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
@@ -10,3 +10,5 @@ GET        /assets/*file        controllers.Assets.at(path="/public", file)
 
 GET        /persona             controllers.PersonaController.index(p:Int ?= 0, s:Int ?= 5, f ?= "")
 GET        /persona/:id         controllers.PersonaController.edit(id)
+
+POST		/persona/:id 		controllers.PersonaController.update(id)

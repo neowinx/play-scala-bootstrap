@@ -25,13 +25,24 @@ object PersonaController extends Controller {
     }
   }
 
-  def edit(id: String) = Action.async {
+  def edit(id: String) = Action.async { implicit request =>
     asyncTransactionalChain { implicit ctx =>
       asyncById[Persona](id).map { personaOption =>
         personaOption.map { persona =>
           Ok(html.persona.edit(id, personaForm.fillWith(persona)))
         }.getOrElse(NotFound)
       }
+    }
+  }
+
+  def update(id: String) = Action.async { implicit request =>
+    asyncTransactionalChain { implicit ctx =>
+      personaForm.bindFromRequest.fold (
+          formWithErrors => Future.successful(BadRequest( "You need to pass a 'xxx' value!" )),
+          { personaOption =>
+              Future.successful(Ok("Yay"))
+          }
+      )    
     }
   }
 

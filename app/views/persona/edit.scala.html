@@ -1,7 +1,13 @@
 @(id: String, personaForm: Form[net.fwbrasil.activate.play.EntityData[Persona]])
 
+@import helper._
+
 @main {
 
-    <h1>Editar @id</h1>
+    <h1>Editar @Messages("Persona_")</h1>
+
+    @form(routes.PersonaController.update(id)){
+    	@inputText(personaForm("nombre"))
+    }
 
 }
