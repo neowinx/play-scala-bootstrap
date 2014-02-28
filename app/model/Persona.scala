@@ -8,15 +8,18 @@ import anorm.SqlParser._
 import java.util.Date
 import play.api.db.DB
 
-case class Persona(id: Int, descripcion: String, fechaInicio: Option[Date])
+import scala.language.postfixOps
+
+case class Persona(id: Pk[Long] = NotAssigned, nombre: String, apellido: String, fechaNacimiento: Option[Date])
 
 object Persona {
 
   val simple = {
-    get[Int]("persona.id") ~
-    get[String]("persona.descripcion") ~
-    get[Option[Date]]("persona.fecha_inicio") map {
-      case id~descripcion~fechaInicio=> Persona(id, descripcion, fechaInicio)
+    get[Pk[Long]]("persona.id") ~
+    get[String]("persona.nombre") ~
+    get[String]("persona.apellido") ~ 
+    get[Option[Date]]("persona.fecha_nacimiento") map {
+      case id~nombre~apellido~fechaNacimiento=> Persona(id, nombre, apellido, fechaNacimiento)
     }
   }
 
@@ -37,7 +40,7 @@ object Persona {
     }
   }
 
-  def find(id: Int) : Seq[Persona] = {
+  def find(id: Long) : Seq[Persona] = {
     DB.withConnection { implicit connection =>
       SQL("select * from persona where id = {id} ")
         .on("id" -> id).as(Persona.simple *)
@@ -49,13 +52,14 @@ object Persona {
       SQL(
         """
           insert into persona values (
-            {id}, {descripcion}, {fechaInicio}
+            {id}, {nombre}, {apellido}, {fechaNacimiento}
           )
         """
       ).on(
         'id -> persona.id,
-        'descripcion -> persona.descripcion,
-        'fechaInicio -> persona.fechaInicio
+        'nombre -> persona.nombre,
+        'apellido -> persona.apellido,
+        'fechaNacimiento -> persona.fechaNacimiento
       ).executeUpdate()
 
       persona

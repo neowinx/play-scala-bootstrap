@@ -1,56 +1,31 @@
-@(personaFilter: Form[(Int)], personas: Seq[model.Persona], limit:Int, offset: Int, sort: Int, order:String)
+@(personas: Seq[model.Persona], limit:Int, offset: Int, sort: Int, order:String)
 
-@theader(orderBy:Int, title:String) = {
-    <!--suppress ALL -->
-    <th>
-        <a href="?sort=@{ if(orderBy == scala.math.abs(sort)) { if(orderBy > 0) -sort else sort } else orderBy }">@Messages(title)</a>
-    </th>
-}
+@import tags._
 
 @main {
 
     <h1>@Messages("persona_")</h1>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">@Messages("search_title")</h3>
-        </div>
-        @helper.form(action = routes.PersonaController.index(limit, offset, sort, order)) {
-
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-1">
-                    @helper.inputText(personaFilter("id"))
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1">
-                    <input type="submit" class="btn btn-primary" value="Buscar" />
-                </div>
-            </div>
-        </div>
-
-        }
-    </div>
-
     <table class="table table-bordered">
 
         <thead>
             <tr>
-                @theader(1,"persona_.id")
-                @theader(2,"persona_.descripcion")
-                @theader(3,"persona_.fecha_inicio")
+              @theader("persona_.nombre")
+              @theader("persona_.apellido")
+              @theader("persona_.fechaNacimiento")
             </tr>
         </thead>
 
         <tbody>
+
             @for(per <- personas) {
-                <tr>
-                    <td>@per.id</td>
-                    <td><a href="/persona/@per.id">@per.descripcion</a></td>
-                    <td>@per.fechaInicio</td>
-                </tr>
+            <tr>
+                <td><a href="/persona/@per.id">@per.nombre</a></td>
+                <td>@per.apellido</td>
+                <td>@per.fechaNacimiento.map(_.format("dd MMM yyyy"))</td>
+            </tr>
             }
+
         </tbody>
 
     </table>

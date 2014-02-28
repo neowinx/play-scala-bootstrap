@@ -10,6 +10,5 @@ GET         /assets/*file               controllers.Assets.at(path="/public", fi
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /persona                    controllers.PersonaController.index(limit:Int ?= 10, offset:Int ?= 0, sort:Int ?= 1, order ?= "asc")
-GET         /persona/$id<[0-9]+>        controllers.PersonaController.edit(id: Int)
-POST        /persona/$id<[0-9]+>        controllers.PersonaController.update(id: Int)
+GET         /persona/$id<[0-9]+>        controllers.PersonaController.edit(id: Long)
 

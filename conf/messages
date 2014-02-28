@@ -1,18 +1,38 @@
-application.title=Sistema de Administración de Personal
+application.title=Personal Administration System
 
-search_title=Filtros de Búsqueda
+search_title=Search Filters
+
+##################
+#General Messages#
+##################
+
+msg_save=Save
+msg_cancel=Cancel
+msg_delete=Delete
+msg_edit=Edit
+msg_entity_updated=updated correctly
+msg_delete_question=Are you sure you want to delete the record?
 
 #Menubar
-menubar.Home=Inicio
-menubar.Administracion=Administración
+menubar.Home=Home
+menubar.Administracion=Manage
+
+###################
+#Per view messages#
+###################
 
 #index.scala.html
 menu.title=Menu
-hero.title=Este es el Sistema de Administración de Personal de la empresa Fenix S.A.
+hero.title=This is the Personal Administration System of the Fenix S.A. Company
+
+#####################
+#Per entity messages#
+#####################
 
 #Persona
-persona_=Persona
-persona_.plural=Personas
+persona_=Person
+persona_.plural=Persons
 persona_.id=Id
-persona_.descripcion=Descripcion
-persona_.fecha_inicio=Fecha Inicio
+persona_.nombre=Name
+persona_.apellido=Last name
+persona_.fechaNacimiento=Date of Birth
